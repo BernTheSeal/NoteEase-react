@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {handleAddNote} from "../helpers/noteHelpers";
 import {handleInputLimit} from "../helpers/inputHelpers";
 
-export default function AddNotePage({notes, setNotes ,setAddPanel}){
+export default function AddNotePage({notes, setNotes}){
     const [tittle , setTittle] = useState('')
     const [description, setDescription] = useState('')
 
@@ -29,15 +29,9 @@ export default function AddNotePage({notes, setNotes ,setAddPanel}){
         localStorage.setItem("allNotes", JSON.stringify(notes));
       }, [notes]);
     
-    function handleAddNoteClick(e) {
-        e.preventDefault()
-        handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)
-    }
-
     return(
         <div>
             <form>
-                <button onClick={()=>setAddPanel(false)}> x </button>
                 {
                     inputFields.map((i)=> (
                         <input type={i.type} placeholder={i.placeholder} value={i.state} 
@@ -45,7 +39,10 @@ export default function AddNotePage({notes, setNotes ,setAddPanel}){
                         />
                     ))
                 }
-                <button onClick={handleAddNoteClick}> add </button>
+                <button onClick={(e)=>{
+                     e.preventDefault()
+                     handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)
+                }}> add </button>
             </form>
         </div>
     )

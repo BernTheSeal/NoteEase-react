@@ -14,3 +14,16 @@ export function handleDeleteNote(notes, id , setNotes) {
     setNotes(updatedNotes)
 }
 
+export function handleEditNote(id, newTittle, newDescription , notes, setNotes) {
+    const updateNotes = notes.map((note)=> {
+        if(note.id === id) {
+            return {
+                ...note,
+                tittle: newTittle.trim(),
+                description: newDescription.trim()
+            }
+        }
+        return note
+    })
+    setNotes(updateNotes)
+}
