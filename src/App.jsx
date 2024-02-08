@@ -9,6 +9,9 @@ function App() {
   const storageData = localStorage.getItem("allNotes") || '[]';
   const [notes, setNotes] = useState(JSON.parse(storageData))
 
+  //todo: addnotepage ve editnotepage modala donustur.
+  //todo: css kodlarini yaz.
+
   return (
     <Router>
       <Routes>

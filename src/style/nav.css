@@ -1,0 +1,5 @@
+nav {
+    border-right: 1px solid #404040;
+    grid-area: 2 / 1 / 13 / 3;
+    overflow: auto;
+}

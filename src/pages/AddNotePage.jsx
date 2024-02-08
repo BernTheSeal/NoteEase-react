@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import {handleAddNote} from "../helpers/noteHelpers";
-import {handleInputLimit} from "../helpers/inputHelpers";
+import { handleAddNote } from "../helpers/noteHelpers";
+import { handleInputLimit } from "../helpers/inputHelpers";
+import Button from "../components/Button";
 
-export default function AddNotePage({notes, setNotes}){
-    const [tittle , setTittle] = useState('')
+export default function AddNotePage({ notes, setNotes }) {
+    const [tittle, setTittle] = useState('')
     const [description, setDescription] = useState('')
 
     const inputFields = [
@@ -12,7 +13,7 @@ export default function AddNotePage({notes, setNotes}){
             placeholder: 'tittle',
             limit: 50,
             key: 'TITTLE',
-            state : tittle,
+            state: tittle,
             setState: setTittle
         },
         {
@@ -20,29 +21,24 @@ export default function AddNotePage({notes, setNotes}){
             placeholder: 'description',
             limit: 250,
             key: 'DESCRIPTION',
-            state : description,
+            state: description,
             setState: setDescription
         }
     ]
 
     useEffect(() => {
         localStorage.setItem("allNotes", JSON.stringify(notes));
-      }, [notes]);
-    
-    return(
+    }, [notes]);
+
+    return (
         <div>
             <form>
-                {
-                    inputFields.map((i)=> (
-                        <input type={i.type} placeholder={i.placeholder} value={i.state} 
-                            onChange={(e)=>{handleInputLimit(i.limit, e, i.key, i.state, i.setState)}}
-                        />
-                    ))
+                {inputFields.map((i) => (
+                    <input type={i.type} placeholder={i.placeholder} value={i.state}
+                        onChange={(e) => { handleInputLimit(i.limit, e, i.key, i.state, i.setState) }}
+                    />))
                 }
-                <button onClick={(e)=>{
-                     e.preventDefault()
-                     handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)
-                }}> add </button>
+                <Button onClick={() => handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)}> add </Button>
             </form>
         </div>
     )
