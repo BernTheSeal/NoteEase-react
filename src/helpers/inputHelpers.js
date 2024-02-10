@@ -14,6 +14,13 @@ export function handleInputLimit(limit, e, type, state, setState) {
                 setState(e.target.value.substring(0, limit))
             }
             break;
+        case 'LIST':
+            if (state.length < limit) {
+                setState(e.target.value)
+            } else {
+                setState(e.target.value.substring(0, limit))
+            }
+            break;
     }
 }
 

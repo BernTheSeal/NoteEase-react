@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { handleAddNote } from "../helpers/noteHelpers";
 import { handleInputLimit } from "../helpers/inputHelpers";
 import Button from "../components/Button";
 
-export default function AddNotePage({ notes, setNotes }) {
+export default function AddNotePage({ notes, setNotes, setIsAddNotePage }) {
     const [tittle, setTittle] = useState('')
     const [description, setDescription] = useState('')
 
@@ -19,26 +19,26 @@ export default function AddNotePage({ notes, setNotes }) {
         {
             type: 'text',
             placeholder: 'description',
-            limit: 250,
+            limit: 600,
             key: 'DESCRIPTION',
             state: description,
             setState: setDescription
         }
     ]
 
-    useEffect(() => {
-        localStorage.setItem("allNotes", JSON.stringify(notes));
-    }, [notes]);
-
     return (
-        <div>
+        <div className="add-note-page-container">
             <form>
                 {inputFields.map((i) => (
-                    <input type={i.type} placeholder={i.placeholder} value={i.state}
-                        onChange={(e) => { handleInputLimit(i.limit, e, i.key, i.state, i.setState) }}
-                    />))
+                    <div>
+                        <input type={i.type} placeholder={i.placeholder} value={i.state}
+                            onChange={(e) => { handleInputLimit(i.limit, e, i.key, i.state, i.setState) }}
+                        />
+                    </div>
+                ))
                 }
                 <Button onClick={() => handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)}> add </Button>
+                <button onClick={() => setIsAddNotePage(false)}>X</button>
             </form>
         </div>
     )

@@ -1,25 +1,33 @@
-import './App.css'
+import './style/app.css';
+import './style/header.css';
+import './style/main.css';
+import './style/nav.css';
+import './style/add-note-page.css'
 import MainPage from './pages/MainPage'
-import AddNotePage from './pages/AddNotePage';
-import EditNotePage from './pages/EditNotePage';
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const storageData = localStorage.getItem("allNotes") || '[]';
-  const [notes, setNotes] = useState(JSON.parse(storageData))
+  const notesStroageData = localStorage.getItem("allNotes") || '[]';
+  const listStorageData = localStorage.getItem("allList") || '[]'
 
-  //todo: addnotepage ve editnotepage modala donustur.
-  //todo: css kodlarini yaz.
+  const [notes, setNotes] = useState(JSON.parse(notesStroageData))
+  const [list, setList] = useState(JSON.parse(listStorageData))
+
+  useEffect(() => {
+    localStorage.setItem("allList", JSON.stringify(list))
+  }, [list])
+
+  useEffect(() => {
+    localStorage.setItem("allNotes", JSON.stringify(notes));
+  }, [notes]);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" exact element={<MainPage notes={notes} setNotes={setNotes} />} />
-        <Route path='/add-note' element={<AddNotePage notes={notes} setNotes={setNotes} />} />
-        <Route path='/edit-note/:id' element={<EditNotePage notes={notes} setNotes={setNotes} />} />
-      </Routes>
-    </Router>
+    <MainPage
+      notes={notes}
+      setNotes={setNotes}
+      list={list}
+      setList={setList}
+    />
   )
 }
 

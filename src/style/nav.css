@@ -3,3 +3,52 @@ nav {
     grid-area: 2 / 1 / 13 / 3;
     overflow: auto;
 }
+
+nav .group {
+    border-bottom: 1px solid #404040;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 2.9rem;
+    cursor: pointer;
+}
+
+nav i {
+    height: 0.7rem;
+    width: 0.7rem;
+    margin-right: 0.5rem;
+}
+
+nav .group.group:hover {
+    background-color: #252525;
+}
+
+nav .group div {
+    display: flex;
+    align-items: center;
+}
+
+nav .group .circle {
+    height: 0.7rem;
+    width: 0.7rem;
+    border-radius: 50%;
+}
+
+av::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+}
+
+nav .group h3 {
+    font-size: 0.9rem;
+    color: #a9a9a9;
+}
+
+nav .group p {
+    background-color: rgb(11, 122, 22);
+    padding: 0.1rem 0.7rem;
+    border-radius: 0.6rem;
+    font-size: 0.8rem;
+    color: white;
+}
