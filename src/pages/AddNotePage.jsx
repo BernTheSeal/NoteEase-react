@@ -1,44 +1,34 @@
 import { useState } from "react";
 import { handleAddNote } from "../helpers/noteHelpers";
 import { handleInputLimit } from "../helpers/inputHelpers";
-import Button from "../components/Button";
+import { Toaster } from 'react-hot-toast';
 
 export default function AddNotePage({ notes, setNotes, setIsAddNotePage }) {
     const [tittle, setTittle] = useState('')
     const [description, setDescription] = useState('')
 
-    const inputFields = [
-        {
-            type: 'text',
-            placeholder: 'tittle',
-            limit: 50,
-            key: 'TITTLE',
-            state: tittle,
-            setState: setTittle
-        },
-        {
-            type: 'text',
-            placeholder: 'description',
-            limit: 600,
-            key: 'DESCRIPTION',
-            state: description,
-            setState: setDescription
-        }
-    ]
-
     return (
-        <div className="add-note-page-container">
+        <div className="pages-container">
+            <Toaster />
             <form>
-                {inputFields.map((i) => (
-                    <div>
-                        <input type={i.type} placeholder={i.placeholder} value={i.state}
-                            onChange={(e) => { handleInputLimit(i.limit, e, i.key, i.state, i.setState) }}
-                        />
-                    </div>
-                ))
-                }
-                <Button onClick={() => handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)}> add </Button>
-                <button onClick={() => setIsAddNotePage(false)}>X</button>
+                <div className="form-header">
+                    <h3> Add Note</h3>
+                    <button onClick={() => setIsAddNotePage(false)}><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div className="form-main">
+                    <input type="text" placeholder="tittle" value={tittle} onChange={(e) => handleInputLimit(80, e, 'TITTLE', tittle, setTittle)} />
+                    <textarea placeholder="description" value={description} onChange={(e) => {
+                        handleInputLimit(750, e, 'DESCRIPTION', description, setDescription)
+                    }}></textarea>
+                </div>
+                <div className="form-footer">
+                    <button className="grn-btn" onClick={(e) => {
+                        e.preventDefault()
+                        handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)
+                        notify()
+                    }}> Add </button>
+                    <button onClick={() => setIsAddNotePage(false)}  > Cancel</button>
+                </div>
             </form>
         </div>
     )

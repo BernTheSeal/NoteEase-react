@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
 import { handleDeleteNote } from "../helpers/noteHelpers";
 
-export default function NotesList({ notes, setNotes, searchVal, setCurrentId, setIsUpdateNotePage, setIsListPage }) {
+export default function NotesList({ notes, setNotes, searchVal, setCurrentId, setIsUpdateNotePage, setIsListPage, list }) {
 
     return (
         <ul className="note-list-container">
-            {notes.filter(note => (handleInputSearch(note, searchVal))).map((note) => (
+            {notes.filter(note => (handleInputSearch(note, searchVal, 'NOTE'))).map((note) => (
                 <li className="list " key={note.id}>
                     <div className="list-header">
                         <div className="list-tittle">
                             <h4> {note.tittle} </h4>
-                            {note.list ? <h5> {note.list} </h5> : null}
+                            {note.list ? <h5 style={{ border: `1px solid ${list.color}` }}> {note.list} </h5> : null}
                         </div>
                         <div className="list-buttons">
                             <button onClick={() => {

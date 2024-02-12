@@ -47,7 +47,7 @@ export default function MainPage(props) {
             /> : null}
             <header>
                 <div className="logo">
-                    <h3> <i class="fa-solid fa-pencil"></i> my notes   </h3>
+                    <h3> <i class="fa-solid fa-pencil"></i> my notes </h3>
                 </div>
                 <div className="search">
                     <div>
@@ -77,30 +77,27 @@ export default function MainPage(props) {
                     setCurrentId={setCurrentId}
                     setIsUpdateNotePage={setIsUpdateNotePage}
                     setIsListPage={setIsListPage}
+                    list={props.list}
                 />
             </main>
             <nav>
                 <div className="group all-list">
                     <div>
                         <div className="circle" style={{ backgroundColor: '#a9a9a9' }}></div>
-                        <div className="circle"></div>
                         <h3>all notes</h3>
                     </div>
-                    <p>{props.notes.length}</p>
+                    <p style={{ backgroundColor: '#a9a9a9', color: 'black' }} >{props.notes.length}</p>
                 </div>
-                {
-                    props.list.map((list) => (
-                        <div className="group">
-                            <div>
-                                <button onClick={() => handleDeleteList(props.list, props.setList, list.id)}> x </button>
-                                <div class="circle" ></div>
-                                <h3>{list.tittle}</h3>
-                            </div>
-                            <p>{list.value}</p>
+                {props.list.map((list) => (
+                    <div className="group">
+                        <div>
+                            {/* <button onClick={() => handleDeleteList(props.list, props.setList, list.id)}> x </button> */}
+                            <div class="circle" style={{ backgroundColor: list.color }} ></div>
+                            <h3>{list.tittle}</h3>
                         </div>
-                    ))
-
-                }
+                        <p style={{ backgroundColor: list.color }}>{list.value}</p>
+                    </div>
+                ))}
                 <div onClick={() => SetIsAddListPage(true)} className="group">
                     <h3> <i class="fa-solid fa-circle-plus"></i> add new list</h3>
                 </div>

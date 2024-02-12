@@ -1,0 +1,110 @@
+.pages-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(43, 43, 43, 0.9);
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.pages-container h3 {
+    color: #a9a9a9;
+    font-size: 1.3rem;
+}
+
+.pages-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(34, 34, 34);
+    border: 1px solid rgb(85, 85, 85);
+    border-radius: 10px;
+    width: 30%;
+    background-color: #303030;
+    padding: 20px;
+
+}
+
+.pages-container .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pages-container .form-header button {
+    background-color: transparent;
+    border: none
+}
+
+.pages-container .form-header button i {
+    color: #a9a9a9;
+    cursor: pointer;
+}
+
+.pages-container .form-header button i:hover {
+    color: white;
+}
+
+.pages-container .form-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    padding: 20px 0;
+}
+
+.pages-container .form-main input {
+    font-weight: 600;
+    border: none;
+    outline: none;
+    height: 2rem;
+    background-color: rgb(58, 58, 58);
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    padding: 0.3rem;
+}
+
+.pages-container .form-main textarea {
+    resize: initial;
+    margin-top: 1rem;
+    height: 10rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    background-color: rgb(58, 58, 58);
+    color: white;
+    padding: 0.3rem;
+    border: none;
+    outline: none;
+}
+
+.pages-container .form-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pages-container .form-footer button {
+    padding: 8px 16px;
+    margin-left: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    background-color: rgb(58, 58, 58);
+}
+
+.pages-container .form-footer button:hover {
+    background-color: rgb(34, 34, 34);
+}
+
+.pages-container .form-footer button.grn-btn {
+    background-color: #28998d;
+}
+
+.pages-container .form-footer button.grn-btn:hover {
+    background-color: #185f58;
+}

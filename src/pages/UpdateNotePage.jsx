@@ -1,30 +1,12 @@
 import { handleUpdateNote } from "../helpers/noteHelpers"
 import { useEffect, useState } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
+import { Toaster } from 'react-hot-toast';
 
 export default function UpdateNotePage({ notes, setNotes, setIsUpdateNotePage, currentId }) {
   const [currentNote, setCurrentNote] = useState('')
   const [newTittle, setNewTittle] = useState('')
   const [newDescription, setNewDescription] = useState('')
-
-  const inputFields = [
-    {
-      type: 'text',
-      placeholder: 'new tittle',
-      limit: 50,
-      key: 'TITTLE',
-      state: newTittle,
-      setState: setNewTittle
-    },
-    {
-      type: 'text',
-      placeholder: 'new description',
-      limit: 600,
-      key: 'DESCRIPTION',
-      state: newDescription,
-      setState: setNewDescription
-    }
-  ]
 
   useEffect(() => {
     const curNote = notes.find(note => note.id === String(currentId))
@@ -37,15 +19,27 @@ export default function UpdateNotePage({ notes, setNotes, setIsUpdateNotePage, c
   }, [currentNote])
 
   return (
-    <div>
+    <div className="pages-container">
+      <Toaster />
       <form action="">
-        {inputFields.map((i) => (
-          <input type={i.type} placeholder={i.placeholder} value={i.state} onChange={(e) => {
-            handleInputLimit(i.limit, e, i.key, i.state, i.setState)
-          }} />
-        ))}
-        <button onClick={() => handleUpdateNote(currentId, newTittle, newDescription, notes, setNotes)}>save</button>
-        <button onClick={() => setIsUpdateNotePage(false)}>x</button>
+        <div className="form-header">
+          <h3> Edit Note</h3>
+          <button onClick={() => setIsAddNotePage(false)}><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div className="form-main">
+          <input type="text" placeholder="tittle" value={newTittle} onChange={(e) => handleInputLimit(80, e, 'TITTLE', newTittle, setNewTittle)} />
+          <textarea placeholder="description" value={newDescription} onChange={(e) => {
+            handleInputLimit(750, e, 'DESCRIPTION', newDescription, setNewDescription)
+          }}></textarea>
+        </div>
+        <div className="form-footer">
+          <button className="grn-btn" onClick={(e) => {
+            e.preventDefault()
+            handleUpdateNote(currentId, newTittle, newDescription, notes, setNotes)
+          }}>Edit</button>
+          <button onClick={() => setIsUpdateNotePage(false)}>Cancel</button>
+        </div>
+
       </form>
     </div>
   )

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export function handleAddList(listTittle, setListTittle, list, setList) {
+export function handleAddList(listTittle, setListTittle, list, setList, color, e) {
     if (listTittle !== '') {
-        setList([{ tittle: listTittle, value: 0, id: uuidv4() }, ...list])
+        setList([{ id: uuidv4(), tittle: listTittle, value: 0, color: color }, ...list])
         setListTittle('')
     }
 }

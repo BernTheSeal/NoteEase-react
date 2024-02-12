@@ -1,0 +1,43 @@
+.list-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(43, 43, 43, 0.9);
+    height: 100vh;
+    width: 100vw;
+}
+
+.list-container .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(34, 34, 34);
+    border: 1px solid rgb(85, 85, 85);
+    border-radius: 10px;
+    width: 20%;
+    height: 60%;
+    background-color: #303030;
+    padding: 20px;
+}
+
+.color-palet {
+    margin-top: 1rem;
+    /* background-color: red; */
+    flex-direction: column;
+    height: 10rem;
+    display: flex;
+}
+
+.color-palet .colors {
+    /* background-color: blue; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.color-palet .colors div {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}

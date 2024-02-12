@@ -2,7 +2,8 @@ import './style/app.css';
 import './style/header.css';
 import './style/main.css';
 import './style/nav.css';
-import './style/add-note-page.css'
+import './style/pages.css'
+import './style/list-page.css'
 import MainPage from './pages/MainPage'
 import { useState, useEffect } from 'react';
 

@@ -24,10 +24,21 @@ export function handleInputLimit(limit, e, type, state, setState) {
     }
 }
 
-export function handleInputSearch(note, searchValue) {
+export function handleInputSearch(element, searchValue, type) {
     const search = searchValue.toLocaleLowerCase().replace(/\s+/g, '').trim()
-    return (
-        note.tittle.toLowerCase().replace(/\s+/g, '').includes(search) ||
-        note.description.toLowerCase().replace(/\s+/g, '').includes(search)
-    )
+    switch (type) {
+        case 'NOTE':
+            return (
+                element.tittle.toLowerCase().replace(/\s+/g, '').includes(search) ||
+                element.description.toLowerCase().replace(/\s+/g, '').includes(search)
+            )
+            break;
+        case 'LIST':
+            return (
+                element.tittle.toLowerCase().replace(/\s+/g, '').includes(search)
+            )
+            break;
+        default:
+            break;
+    }
 }
