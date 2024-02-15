@@ -1,10 +1,14 @@
-import { handleAdditionList } from "../helpers/listHelpers"
+// import { handleAdditionList } from "../helpers/listHelpers"
 import Search from "../components/Search";
 import { useState } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
+import { useContext } from "react";
+import { DataContext } from "../context/DataContext";
 
-export default function ListPage(props) {
+export default function ListPage({ setIsListPage, currentId }) {
     const [searchVal, setSearchVal] = useState('')
+    const { state, dispatch } = useContext(DataContext)
+
     return (
         <div className="list-container">
             <div className="list">
@@ -12,16 +16,16 @@ export default function ListPage(props) {
                     <Search searchVal={searchVal} setSearchVal={setSearchVal} icon={'fa-solid fa-magnifying-glass'} />
                 </div>
                 <div className="list-main">
-                    {props.list.filter(l => (handleInputSearch(l, searchVal, 'LIST'))).map((l) => (
+                    {state.list.filter(list => (handleInputSearch(list, searchVal, 'LIST'))).map((list) => (
                         <div>
                             <button onClick={() => {
-                                handleAdditionList(props.currentId, l.tittle, props.notes, props.setNotes, props.list, props.setList)
-                            }} > {l.tittle}</button>
+                                dispatch({ type: 'ADDITION_LIST', payload: { 'listId': currentId, 'listName': list.tittle, 'color': list.color } })
+                            }} > {list.tittle}</button>
                         </div>
                     ))}
                 </div>
                 <div className="list-footer">
-                    <button onClick={() => props.setIsListPage(false)}>Done</button>
+                    <button onClick={() => setIsListPage(false)}>Done</button>
                 </div>
 
             </div>

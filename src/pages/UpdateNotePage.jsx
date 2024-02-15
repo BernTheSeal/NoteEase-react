@@ -1,15 +1,18 @@
-import { handleUpdateNote } from "../helpers/noteHelpers"
 import { useEffect, useState } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { Toaster } from 'react-hot-toast';
+import { DataContext } from "../context/DataContext";
+import { useContext } from "react";
 
-export default function UpdateNotePage({ notes, setNotes, setIsUpdateNotePage, currentId }) {
+export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
   const [currentNote, setCurrentNote] = useState('')
   const [newTittle, setNewTittle] = useState('')
   const [newDescription, setNewDescription] = useState('')
 
+  const { state, dispatch } = useContext(DataContext)
+
   useEffect(() => {
-    const curNote = notes.find(note => note.id === String(currentId))
+    const curNote = state.notes.find(note => note.id === String(currentId))
     setCurrentNote(curNote)
   }, [currentId])
 
@@ -35,7 +38,7 @@ export default function UpdateNotePage({ notes, setNotes, setIsUpdateNotePage, c
         <div className="form-footer">
           <button className="grn-btn" onClick={(e) => {
             e.preventDefault()
-            handleUpdateNote(currentId, newTittle, newDescription, notes, setNotes)
+            dispatch({ type: 'EDIT_NOTE', payload: { 'editId': currentId, 'newTittle': newTittle, 'newDescription': newDescription } })
           }}>Edit</button>
           <button onClick={() => setIsUpdateNotePage(false)}>Cancel</button>
         </div>

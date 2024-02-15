@@ -5,30 +5,14 @@ import './style/nav.css';
 import './style/pages.css'
 import './style/list-page.css'
 import MainPage from './pages/MainPage'
-import { useState, useEffect } from 'react';
+import { DataProvider } from './context/DataContext.jsx'
 
 function App() {
-  const notesStroageData = localStorage.getItem("allNotes") || '[]';
-  const listStorageData = localStorage.getItem("allList") || '[]'
-
-  const [notes, setNotes] = useState(JSON.parse(notesStroageData))
-  const [list, setList] = useState(JSON.parse(listStorageData))
-
-  useEffect(() => {
-    localStorage.setItem("allList", JSON.stringify(list))
-  }, [list])
-
-  useEffect(() => {
-    localStorage.setItem("allNotes", JSON.stringify(notes));
-  }, [notes]);
 
   return (
-    <MainPage
-      notes={notes}
-      setNotes={setNotes}
-      list={list}
-      setList={setList}
-    />
+    <DataProvider>
+      <MainPage />
+    </DataProvider>
   )
 }
 

@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { handleAddNote } from "../helpers/noteHelpers";
 import { handleInputLimit } from "../helpers/inputHelpers";
 import { Toaster } from 'react-hot-toast';
+import { DataContext } from "../context/DataContext";
+import { useContext } from "react";
 
-export default function AddNotePage({ notes, setNotes, setIsAddNotePage }) {
+export default function AddNotePage({ setIsAddNotePage }) {
     const [tittle, setTittle] = useState('')
     const [description, setDescription] = useState('')
+
+    const { dispatch } = useContext(DataContext)
 
     return (
         <div className="pages-container">
@@ -24,10 +27,11 @@ export default function AddNotePage({ notes, setNotes, setIsAddNotePage }) {
                 <div className="form-footer">
                     <button className="grn-btn" onClick={(e) => {
                         e.preventDefault()
-                        handleAddNote(tittle, description, setNotes, setTittle, setDescription, notes)
-                        notify()
+                        dispatch({ type: 'ADD_NOTE', payload: { 'tittle': tittle, 'description': description } })
+                        setTittle('')
+                        setDescription('')
                     }}> Add </button>
-                    <button onClick={() => setIsAddNotePage(false)}  > Cancel</button>
+                    <button onClick={() => setIsAddNotePage(false)}> Cancel</button>
                 </div>
             </form>
         </div>

@@ -1,10 +1,14 @@
 import { useState } from "react"
-import { handleAddList } from "../helpers/listHelpers"
+// import { handleAddList } from "../helpers/listHelpers"
 import { handleInputLimit } from "../helpers/inputHelpers"
+import { useContext, } from "react"
+import { DataContext } from "../context/DataContext"
 
 export default function AddListPage({ SetIsAddListPage, list, setList }) {
     const [listTittle, setListTittle] = useState('')
     const [color, setColor] = useState(null)
+
+    const { dispatch } = useContext(DataContext)
 
     const colors = ['#3491a3', '#7eab02', '#8c52ff', '#ff1616', '#ff66c4', '#ff914d ', '#dab82e', '#a6a6a6', '#896363 ']
 
@@ -35,7 +39,11 @@ export default function AddListPage({ SetIsAddListPage, list, setList }) {
                 <div className="form-footer">
                     <button className="grn-btn" onClick={(e) => {
                         e.preventDefault()
-                        handleAddList(listTittle, setListTittle, list, setList, color, e)
+                        if (listTittle !== '' && color !== null) {
+                            dispatch({ type: 'ADD_LIST', payload: { 'listTittle': listTittle, 'listColor': color } })
+                        } else {
+                            console.log('liste ismi veya color bos')
+                        }
                     }}> Add </button>
                     <button onClick={() => SetIsAddListPage(false)}>Cancel</button>
                 </div>
