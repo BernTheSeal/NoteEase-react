@@ -7,37 +7,115 @@
     background-color: rgba(43, 43, 43, 0.9);
     height: 100vh;
     width: 100vw;
+
 }
 
 .list-container .list {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color: rgb(34, 34, 34);
-    border: 1px solid rgb(85, 85, 85);
+    background-color: #2a2a2a;
+    border: 1px solid #404040;
     border-radius: 10px;
     width: 20%;
     height: 60%;
-    background-color: #303030;
+    overflow: auto;
+}
+
+.list .list-header {
+    width: 100%;
+    height: 12%;
+}
+
+
+.list .list-header .search-input {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    background-color: rgb(32, 32, 32);
+}
+
+.list .list-header .search-input input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding-left: 0.5rem;
+    background-color: rgb(32, 32, 32);
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+}
+
+.list .list-header .search-input i {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(46, 46, 46);
+}
+
+.list-main {
+    height: 80%;
+    overflow: auto;
+}
+
+.list-main div {
+    width: 100%;
+    height: 15%;
+    border-bottom: 1px solid #404040;
+}
+
+.list-main div button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #2c2c2c;
+    padding: 0 10px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    color: #a9a9a9;
+}
+
+.list-main div button:hover {
+    background-color: #313131;
+}
+
+.list-footer {
+    display: flex;
+    justify-content: flex-end;
     padding: 20px;
 }
 
-.color-palet {
-    margin-top: 1rem;
-    /* background-color: red; */
-    flex-direction: column;
-    height: 10rem;
-    display: flex;
+.list-footer button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #28998d;
+    border: none;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    transition: .1s;
 }
 
-.color-palet .colors {
-    /* background-color: blue; */
-    display: flex;
-    justify-content: space-between;
+.list-footer button:hover {
+    background-color: #185f58;
 }
 
-.color-palet .colors div {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
+.list-main::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: transparent;
+}
+
+.list-main::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+.list-main::-webkit-scrollbar-thumb:hover {
+    background: #444;
 }

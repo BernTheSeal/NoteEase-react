@@ -4,6 +4,26 @@ nav {
     overflow: auto;
 }
 
+nav button {
+    display: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    font-weight: 600;
+    background-color: transparent;
+    color: #a9a9a9;
+    right: 1px;
+    font-size: 0.6rem
+}
+
+nav button:hover {
+    color: white;
+}
+
+nav .group:hover button {
+    display: flex;
+}
+
 nav .group {
     border-bottom: 1px solid #404040;
     display: flex;
@@ -12,6 +32,8 @@ nav .group {
     padding: 0 20px;
     height: 2.9rem;
     cursor: pointer;
+    transition: .1s;
+    position: relative;
 }
 
 nav i {
@@ -20,11 +42,11 @@ nav i {
     margin-right: 0.5rem;
 }
 
-nav .group.group:hover {
+nav .group:hover {
     background-color: #252525;
 }
 
-nav .group div {
+nav .group .group-header {
     display: flex;
     align-items: center;
 }
@@ -36,7 +58,7 @@ nav .group .circle {
     margin-right: 0.3rem;
 }
 
-av::-webkit-scrollbar {
+nav::-webkit-scrollbar {
     height: 0px;
     width: 0px;
 }
@@ -47,9 +69,12 @@ nav .group h3 {
 }
 
 nav .group p {
-    background-color: rgb(11, 122, 22);
     padding: 0.1rem 0.7rem;
     border-radius: 0.6rem;
     font-size: 0.8rem;
+    color: white;
+}
+
+nav .add-new-list:hover h3 {
     color: white;
 }

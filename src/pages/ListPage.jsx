@@ -1,13 +1,19 @@
 // import { handleAdditionList } from "../helpers/listHelpers"
 import Search from "../components/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 
 export default function ListPage({ setIsListPage, currentId }) {
     const [searchVal, setSearchVal] = useState('')
+    const [currentList, setCurrentList] = useState(null)
     const { state, dispatch } = useContext(DataContext)
+
+    useEffect(() => {
+        const currentNote = state.notes.find(note => note.id === currentId)
+        setCurrentList(currentNote.list)
+    }, [state.notes, state.list])
 
     return (
         <div className="list-container">
@@ -18,9 +24,17 @@ export default function ListPage({ setIsListPage, currentId }) {
                 <div className="list-main">
                     {state.list.filter(list => (handleInputSearch(list, searchVal, 'LIST'))).map((list) => (
                         <div>
-                            <button onClick={() => {
-                                dispatch({ type: 'ADDITION_LIST', payload: { 'listId': currentId, 'listName': list.tittle, 'color': list.color } })
-                            }} > {list.tittle}</button>
+                            <button
+                                style={{ color: list.color }}
+                                onClick={() => {
+                                    if (currentList !== list.tittle) {
+                                        dispatch({ type: 'ADDITION_LIST', payload: { 'listId': currentId, 'listName': list.tittle, 'color': list.color } })
+                                    } else {
+                                        dispatch({ type: 'REMOVE_FROM_LIST', payload: { 'removeListId': currentId } })
+                                    }
+                                }} > {list.tittle}
+                                {currentList === list.tittle ? <i class="fa-solid fa-check"></i> : null}
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -29,8 +43,6 @@ export default function ListPage({ setIsListPage, currentId }) {
                 </div>
 
             </div>
-
-
         </div>
     )
 }

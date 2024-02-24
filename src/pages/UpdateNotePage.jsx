@@ -8,7 +8,6 @@ export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
   const [currentNote, setCurrentNote] = useState('')
   const [newTittle, setNewTittle] = useState('')
   const [newDescription, setNewDescription] = useState('')
-
   const { state, dispatch } = useContext(DataContext)
 
   useEffect(() => {

@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { handleInputLimit } from "../helpers/inputHelpers";
 import { Toaster } from 'react-hot-toast';
 import { DataContext } from "../context/DataContext";
-import { useContext } from "react";
 
 export default function AddNotePage({ setIsAddNotePage }) {
     const [tittle, setTittle] = useState('')
     const [description, setDescription] = useState('')
-
     const { dispatch } = useContext(DataContext)
 
     return (
@@ -31,7 +29,9 @@ export default function AddNotePage({ setIsAddNotePage }) {
                         setTittle('')
                         setDescription('')
                     }}> Add </button>
-                    <button onClick={() => setIsAddNotePage(false)}> Cancel</button>
+                    <button onClick={() =>
+                        setIsAddNotePage(false)
+                    }> Cancel</button>
                 </div>
             </form>
         </div>

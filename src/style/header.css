@@ -35,7 +35,7 @@ header .search {
 header .search div {
     width: 60%;
     height: 50%;
-    background-color: rgb(58, 58, 58);
+    background-color: #272727;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -55,7 +55,7 @@ header .search div i {
     font-size: 13px;
     margin-right: 10px;
     margin-left: 10px;
-    color: #a9a9a9;
+    color: #353535;
 }
 
 header .buttons {
@@ -75,6 +75,7 @@ header .buttons .add-btn {
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    transition: .1s;
 }
 
 header .buttons .add-btn:hover {

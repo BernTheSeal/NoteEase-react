@@ -94,6 +94,21 @@ const reducer = (state, action) => {
                     return note
                 })
             };
+
+        case 'REMOVE_FROM_LIST':
+            const { removeListId } = action.payload
+            return {
+                ...state,
+                notes: state.notes.map((note) => {
+                    if (note.id === String(removeListId)) {
+                        return {
+                            ...note,
+                            list: null
+                        }
+                    }
+                    return note
+                })
+            }
     }
 }
 
@@ -104,12 +119,10 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem("allNotes", JSON.stringify(state.notes))
-        console.log('not guncellendi')
     }, [state.notes])
 
     useEffect(() => {
         localStorage.setItem("allList", JSON.stringify(state.list))
-        console.log('liste guncellendi')
     }, [state.list])
 
     return (
