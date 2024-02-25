@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import Lists from "../components/Lists";
 import { Toaster } from "react-hot-toast";
+import logo from "/logo.svg";
 
 export default function MainPage() {
     const { state } = useContext(DataContext)
@@ -41,7 +42,7 @@ export default function MainPage() {
             /> : null}
             <header>
                 <div className="logo">
-                    <h3> <img style={{ fontSize: '0.2rem' }} src="./logo.svg" alt="" /> NoteEase </h3>
+                    <h3> <img style={{ fontSize: '0.2rem' }} src={logo} alt="logo" /> NoteEase </h3>
                 </div>
 
                 <div className="search">
