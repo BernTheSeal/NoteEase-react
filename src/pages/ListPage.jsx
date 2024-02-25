@@ -1,8 +1,7 @@
 // import { handleAdditionList } from "../helpers/listHelpers"
 import Search from "../components/Search";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
-import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 
 export default function ListPage({ setIsListPage, currentId }) {

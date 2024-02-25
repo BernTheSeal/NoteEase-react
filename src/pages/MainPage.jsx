@@ -7,6 +7,7 @@ import AddListPage from "./AddListPage";
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import Lists from "../components/Lists";
+import { Toaster } from "react-hot-toast";
 
 export default function MainPage() {
     const { state } = useContext(DataContext)
@@ -23,6 +24,7 @@ export default function MainPage() {
 
     return (
         <div className="main-page-container">
+            <Toaster />
             {isAddNotePage ? <AddNotePage
                 setIsAddNotePage={setIsAddNotePage}
             /> : null}
@@ -39,7 +41,7 @@ export default function MainPage() {
             /> : null}
             <header>
                 <div className="logo">
-                    <h3> <i className="fa-solid fa-pencil"></i> my notes </h3>
+                    <h3> <img style={{ fontSize: '0.2rem' }} src="./logo.svg" alt="" /> NoteEase </h3>
                 </div>
 
                 <div className="search">

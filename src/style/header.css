@@ -22,8 +22,8 @@ header .logo h3 {
     color: #a9a9a9;
 }
 
-header .logo h3 i {
-    font-size: 1.1rem;
+header .logo h3 img {
+    height: 15px;
 }
 
 header .search {

@@ -1,11 +1,9 @@
-import React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../context/DataContext'
 
 export default function Lists({ setFilterListTittle }) {
     const { state, dispatch } = useContext(DataContext)
     const [listLengths, setListLengths] = useState({})
-    console.log(listLengths)
 
     useEffect(() => {
         const lengths = {}
@@ -21,8 +19,8 @@ export default function Lists({ setFilterListTittle }) {
             {
                 state.list.map((list, index) => (
                     <div key={index} className="group" onClick={() => { setFilterListTittle(list.tittle) }}>
-
-                        <button onClick={() => {
+                        <button onClick={(e) => {
+                            e.stopPropagation()
                             dispatch({ type: 'DELETE_LIST', payload: { 'deleteListId': list.id, 'deleteListName': list.tittle } })
                         }} ><i class="fa-solid fa-x"></i></button>
                         <div className='group-header'>
@@ -37,8 +35,6 @@ export default function Lists({ setFilterListTittle }) {
                 ))
             }
         </>
-
-
     )
 }
 

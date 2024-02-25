@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { handleInputLimit } from "../helpers/inputHelpers";
-import { Toaster } from 'react-hot-toast';
 import { DataContext } from "../context/DataContext";
+import getToast from "../helpers/toastHelpers";
 
 export default function AddNotePage({ setIsAddNotePage }) {
     const [tittle, setTittle] = useState('')
@@ -10,7 +10,6 @@ export default function AddNotePage({ setIsAddNotePage }) {
 
     return (
         <div className="pages-container">
-            <Toaster />
             <form>
                 <div className="form-header">
                     <h3> Add Note</h3>
@@ -25,9 +24,13 @@ export default function AddNotePage({ setIsAddNotePage }) {
                 <div className="form-footer">
                     <button className="grn-btn" onClick={(e) => {
                         e.preventDefault()
-                        dispatch({ type: 'ADD_NOTE', payload: { 'tittle': tittle, 'description': description } })
-                        setTittle('')
-                        setDescription('')
+                        if (tittle !== '' && description !== '') {
+                            dispatch({ type: 'ADD_NOTE', payload: { 'tittle': tittle, 'description': description } })
+                            setIsAddNotePage(false)
+                            getToast('note', 'Note is successfully added!', true)
+                        } else {
+                            getToast('note', 'Please fill out all fields to add a note.', false)
+                        }
                     }}> Add </button>
                     <button onClick={() =>
                         setIsAddNotePage(false)

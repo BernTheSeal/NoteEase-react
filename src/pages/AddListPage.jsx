@@ -1,13 +1,22 @@
-import { useState } from "react"
-import { handleInputLimit } from "../helpers/inputHelpers"
-import { useContext, } from "react"
+import { useEffect, useState, useContext } from "react"
 import { DataContext } from "../context/DataContext"
+import getToast from "../helpers/toastHelpers"
+import { handleInputLimit } from "../helpers/inputHelpers"
 
 export default function AddListPage({ SetIsAddListPage }) {
     const [listTittle, setListTittle] = useState('')
     const [currentColor, setCurrentColor] = useState(null)
+    const [listTittleArray, setListTittleArray] = useState([])
 
-    const { dispatch } = useContext(DataContext)
+    const { dispatch, state } = useContext(DataContext)
+
+    useEffect(() => {
+        const listTittleArray = []
+        for (let key of state.list) {
+            listTittleArray.push(key.tittle)
+        }
+        setListTittleArray(listTittleArray)
+    }, [state.list])
 
     const colors = ['#3491a3', '#7eab02', '#8c52ff', '#ff1616', '#ff66c4', '#ff914d ', '#dab82e', '#896363', '#3cb371', '#4682b4', '#ff6347', '#ba55d3', '#ffa500', '#20b2aa ', '#800000', '#ffa07a']
 
@@ -50,10 +59,17 @@ export default function AddListPage({ SetIsAddListPage }) {
                 <div className="form-footer">
                     <button className="grn-btn" onClick={(e) => {
                         e.preventDefault()
-                        if (listTittle !== '' && currentColor !== null) {
+                        if (listTittle !== '' && currentColor !== null && !listTittleArray.includes(listTittle)) {
                             dispatch({ type: 'ADD_LIST', payload: { 'listTittle': listTittle, 'listColor': currentColor } })
-                        } else {
-                            console.log('liste ismi veya color bos')
+                            SetIsAddListPage(false)
+                            getToast('list', 'List is successfully added!', true)
+                        }
+                        else {
+                            if (listTittleArray.includes(listTittle)) {
+                                getToast('list', 'List already exists', false)
+                            } else {
+                                getToast('list', 'Please fill out all fields to add a note.', false)
+                            }
                         }
                     }}> Add </button>
                     <button onClick={() => SetIsAddListPage(false)}>Cancel</button>

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { Toaster } from 'react-hot-toast';
 import { DataContext } from "../context/DataContext";
-import { useContext } from "react";
 
 export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
   const [currentNote, setCurrentNote] = useState('')

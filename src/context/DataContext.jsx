@@ -15,21 +15,19 @@ const reducer = (state, action) => {
         //*Note actions
         case 'ADD_NOTE':
             const { tittle, description } = action.payload
-            if (tittle !== '' && description !== '') {
-                return {
-                    ...state,
-                    notes: [{
-                        id: uuidv4(),
-                        tittle: tittle.trim(),
-                        description: description.trim(),
-                        list: null,
-                        color: null,
-                        time: getTime(),
-                        day: getDay()
-                    },
-                    ...state.notes]
-                }
-            };
+            return {
+                ...state,
+                notes: [{
+                    id: uuidv4(),
+                    tittle: tittle.trim(),
+                    description: description.trim(),
+                    list: null,
+                    color: null,
+                    time: getTime(),
+                    day: getDay()
+                },
+                ...state.notes]
+            }
         case 'DELETE_NOTE':
             const { deleteId } = action.payload
             return {
