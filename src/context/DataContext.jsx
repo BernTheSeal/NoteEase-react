@@ -4,10 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 const noteStorageData = localStorage.getItem("allNotes") || '[]'
 const listStorageData = localStorage.getItem("allList") || '[]'
+const settingStorageData = localStorage.getItem("allSetting") || '{"list": true, "note": true}'
+
 
 const initialState = {
     notes: JSON.parse(noteStorageData),
-    list: JSON.parse(listStorageData)
+    list: JSON.parse(listStorageData),
+    settings: JSON.parse(settingStorageData)
 }
 
 const reducer = (state, action) => {
@@ -57,7 +60,6 @@ const reducer = (state, action) => {
                 list: [{
                     id: uuidv4(),
                     tittle: listTittle,
-                    value: 0,
                     color: listColor
                 },
                 ...state.list]
@@ -107,6 +109,15 @@ const reducer = (state, action) => {
                     return note
                 })
             }
+        case 'EDIT_SETTINGS':
+            const { what } = action.payload
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    [what]: false
+                }
+            }
     }
 }
 
@@ -122,6 +133,10 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("allList", JSON.stringify(state.list))
     }, [state.list])
+
+    useEffect(() => {
+        localStorage.setItem("allSetting", JSON.stringify(state.settings))
+    }, [state.settings])
 
     return (
         <DataContext.Provider value={{ state, dispatch }}>

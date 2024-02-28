@@ -4,6 +4,7 @@ import AddNotePage from '../pages/AddNotePage';
 import UpdateNotePage from "./UpdateNotePage";
 import ListPage from "./ListPage";
 import AddListPage from "./AddListPage";
+import Modal from "../components/Modal";
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import Lists from "../components/Lists";
@@ -17,11 +18,14 @@ export default function MainPage() {
     const [isUpdateNotePage, setIsUpdateNotePage] = useState(false)
     const [isAddListPage, SetIsAddListPage] = useState(false)
     const [isListPage, setIsListPage] = useState(false)
+    const [isModal, setIsModal] = useState(false)
 
+    const [modalProperties, setModalProperties] = useState({})
     const [currentId, setCurrentId] = useState(null)
     const [searchVal, setSearchVal] = useState('')
-
     const [filterListTittle, setFilterListTittle] = useState('All Notes')
+
+
 
     return (
         <div className="main-page-container">
@@ -39,6 +43,11 @@ export default function MainPage() {
             {isListPage ? <ListPage
                 setIsListPage={setIsListPage}
                 currentId={currentId}
+            /> : null}
+            {isModal ? <Modal
+                setIsModal={setIsModal}
+                currentId={currentId}
+                modalProperties={modalProperties}
             /> : null}
             <header>
                 <div className="logo">
@@ -64,6 +73,8 @@ export default function MainPage() {
                     setIsUpdateNotePage={setIsUpdateNotePage}
                     setIsListPage={setIsListPage}
                     filterListTittle={filterListTittle}
+                    setIsModal={setIsModal}
+                    setModalProperties={setModalProperties}
                 />
             </main>
 
@@ -76,6 +87,8 @@ export default function MainPage() {
                 </div>
                 <Lists
                     setFilterListTittle={setFilterListTittle}
+                    setIsModal={setIsModal}
+                    setModalProperties={setModalProperties}
                 />
                 <div onClick={() => SetIsAddListPage(true)} className="group add-new-list">
                     <h3 > <i className="fa-solid fa-circle-plus"></i> Add New List </h3>

@@ -1,0 +1,81 @@
+.modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(43, 43, 43, 0.7);
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #2a2a2a;
+    color: #a9a9a9;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    width: 40%;
+    padding: 20px;
+}
+
+.modal-conteiner .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header p {
+    font-weight: 600;
+}
+
+.modal-main {
+    margin: 40px 0;
+}
+
+.modal-container .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-buttons button {
+    padding: 8px 16px;
+    margin-left: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    background-color: #3a3a3a;
+    transition: .1s;
+}
+
+.modal-buttons button.dlt-btn {
+    background-color: #992828;
+}
+
+.modal-buttons button.dlt-btn:hover {
+    background-color: #6d1b1b;
+}
+
+
+.modal-buttons button:hover {
+    background-color: #313131;
+}
+
+.modal-label {
+    display: flex;
+    align-items: center;
+}
+
+.modal-label input {
+    margin-right: 0.2rem;
+}
+
+.modal-label label {
+    font-size: 0.9rem;
+}

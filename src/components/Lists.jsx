@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../context/DataContext'
 
-export default function Lists({ setFilterListTittle }) {
+export default function Lists({ setFilterListTittle, setIsModal, setModalProperties }) {
     const { state, dispatch } = useContext(DataContext)
     const [listLengths, setListLengths] = useState({})
 
@@ -21,10 +21,22 @@ export default function Lists({ setFilterListTittle }) {
                     <div key={index} className="group" onClick={() => { setFilterListTittle(list.tittle) }}>
                         <button onClick={(e) => {
                             e.stopPropagation()
-                            dispatch({ type: 'DELETE_LIST', payload: { 'deleteListId': list.id, 'deleteListName': list.tittle } })
+                            if (state.settings.list) {
+                                setIsModal(true)
+                                setModalProperties({
+                                    dispatch: {
+                                        type: 'DELETE_LIST',
+                                        payload: { 'deleteListId': list.id, 'deleteListName': list.tittle }
+                                    },
+                                    text: 'list',
+                                    value: listLengths[list.tittle],
+                                    name: list.tittle
+                                })
+                            } else {
+                                dispatch({ type: 'DELETE_LIST', payload: { 'deleteListId': list.id, 'deleteListName': list.tittle } })
+                            }
                         }} ><i class="fa-solid fa-x"></i></button>
                         <div className='group-header'>
-
                             <div className="circle" style={{ backgroundColor: list.color }} ></div>
                             <h3>{list.tittle}</h3>
                         </div>

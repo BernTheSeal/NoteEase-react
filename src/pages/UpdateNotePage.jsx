@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { Toaster } from 'react-hot-toast';
 import { DataContext } from "../context/DataContext";
+import getToast from "../helpers/toastHelpers";
 
 export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
   const [currentNote, setCurrentNote] = useState('')
@@ -37,6 +38,7 @@ export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
           <button className="grn-btn" onClick={(e) => {
             e.preventDefault()
             dispatch({ type: 'EDIT_NOTE', payload: { 'editId': currentId, 'newTittle': newTittle, 'newDescription': newDescription } })
+            getToast('note', 'Note is successfully edited!', true)
           }}>Edit</button>
           <button onClick={() => setIsUpdateNotePage(false)}>Cancel</button>
         </div>

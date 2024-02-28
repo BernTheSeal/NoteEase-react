@@ -2,9 +2,8 @@ import { handleInputSearch } from "../helpers/inputHelpers";
 import { useContext } from "react"
 import { DataContext } from "../context/DataContext"
 
-export default function Notes({ searchVal, setCurrentId, setIsUpdateNotePage, setIsListPage, filterListTittle }) {
+export default function Notes({ searchVal, setCurrentId, setIsUpdateNotePage, setIsListPage, filterListTittle, setIsModal, setModalProperties }) {
     const { state, dispatch } = useContext(DataContext)
-    console.log(filterListTittle)
     return (
         <ul className="note-list-container">
             {state.notes
@@ -29,7 +28,21 @@ export default function Notes({ searchVal, setCurrentId, setIsUpdateNotePage, se
                                     }
                                     }><i className="fa-solid fa-pen"></i></button>
                                     <button onClick={() => {
-                                        dispatch({ type: 'DELETE_NOTE', payload: { 'deleteId': note.id } })
+                                        setCurrentId(note.id)
+                                        if (state.settings.note) {
+                                            setIsModal(true)
+                                            setModalProperties({
+                                                dispatch: {
+                                                    type: 'DELETE_NOTE',
+                                                    payload: { 'deleteId': note.id }
+                                                },
+                                                text: 'note',
+                                                noteTittle: note.tittle
+
+                                            })
+                                        } else {
+                                            dispatch({ type: 'DELETE_NOTE', payload: { 'deleteId': note.id } })
+                                        }
                                     }}><i className="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
