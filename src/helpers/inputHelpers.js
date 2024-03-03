@@ -1,6 +1,6 @@
 export function handleInputLimit(limit, e, type, state, setState) {
     switch (type) {
-        case 'TITTLE':
+        case 'TITLE':
             if (state.length < limit) {
                 setState(e.target.value)
             } else {
@@ -29,13 +29,13 @@ export function handleInputSearch(element, searchValue, type) {
     switch (type) {
         case 'NOTE':
             return (
-                element.tittle.toLowerCase().replace(/\s+/g, '').includes(search) ||
+                element.title.toLowerCase().replace(/\s+/g, '').includes(search) ||
                 element.description.toLowerCase().replace(/\s+/g, '').includes(search)
             )
             break;
         case 'LIST':
             return (
-                element.tittle.toLowerCase().replace(/\s+/g, '').includes(search)
+                element.title.toLowerCase().replace(/\s+/g, '').includes(search)
             )
             break;
         default:

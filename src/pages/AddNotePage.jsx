@@ -1,12 +1,21 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { handleInputLimit } from "../helpers/inputHelpers";
-import { DataContext } from "../context/DataContext";
-import getToast from "../helpers/toastHelpers";
+import { useDispatch } from "react-redux";
+import { addNote } from "../features/note/noteSlice";
+
 
 export default function AddNotePage({ setIsAddNotePage }) {
-    const [tittle, setTittle] = useState('')
+    const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const { dispatch } = useContext(DataContext)
+    const dispatch = useDispatch()
+
+    const handleAddNote = (e) => {
+        e.preventDefault()
+        if (title !== '' && description !== '') {
+            dispatch(addNote({ title, description }))
+            setIsAddNotePage(false)
+        }
+    }
 
     return (
         <div className="pages-container">
@@ -16,22 +25,15 @@ export default function AddNotePage({ setIsAddNotePage }) {
                     <button onClick={() => setIsAddNotePage(false)}><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div className="form-main">
-                    <input type="text" placeholder="tittle" value={tittle} onChange={(e) => handleInputLimit(80, e, 'TITTLE', tittle, setTittle)} />
+                    <input type="text" placeholder="title" value={title} onChange={(e) => handleInputLimit(50, e, 'TITLE', title, setTitle)} />
                     <textarea placeholder="description" value={description} onChange={(e) => {
-                        handleInputLimit(750, e, 'DESCRIPTION', description, setDescription)
+                        handleInputLimit(1500, e, 'DESCRIPTION', description, setDescription)
                     }}></textarea>
                 </div>
                 <div className="form-footer">
-                    <button className="grn-btn" onClick={(e) => {
-                        e.preventDefault()
-                        if (tittle !== '' && description !== '') {
-                            dispatch({ type: 'ADD_NOTE', payload: { 'tittle': tittle, 'description': description } })
-                            setIsAddNotePage(false)
-                            getToast('note', 'Note is successfully added!', true)
-                        } else {
-                            getToast('note', 'Please fill out all fields to add a note.', false)
-                        }
-                    }}> Add </button>
+                    <button className="grn-btn" onClick={(e) => handleAddNote(e)}>
+                        Add
+                    </button>
                     <button onClick={() =>
                         setIsAddNotePage(false)
                     }> Cancel</button>

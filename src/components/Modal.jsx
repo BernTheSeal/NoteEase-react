@@ -1,16 +1,17 @@
-import { useContext, useState } from "react"
-import { DataContext } from "../context/DataContext"
+import { useState } from "react"
+import { deleteNote } from "../features/note/noteSlice"
+import { useDispatch } from "react-redux"
 
 export default function Modal({ setIsModal, modalProperties }) {
-    const { dispatch } = useContext(DataContext)
-    const [isDontAskChecked, setIsDontAskChecked] = useState(false)
 
-    const handleDelete = () => {
-        dispatch(modalProperties.dispatch)
+    const [isDontAskChecked, setIsDontAskChecked] = useState(false)
+    const dispatch = useDispatch()
+
+    const handleDelete = (id) => {
+        dispatch(deleteNote(id))
         if (isDontAskChecked) {
-            dispatch({ type: 'EDIT_SETTINGS', payload: { 'what': modalProperties.text } })
+
         }
-        setIsModal(false)
     }
 
     return (
@@ -25,7 +26,7 @@ export default function Modal({ setIsModal, modalProperties }) {
                             `there are    ${modalProperties.value} items in the ${modalProperties.name} list. If you delete the list, these three items will remain but list will be deleted.`
                             : null}
                     </p>
-                    <p>{modalProperties.text === 'note' ? `${modalProperties.noteTittle}` : null}</p>
+                    <p>{modalProperties.text === 'note' ? `${modalProperties.title}` : null}</p>
                 </div>
                 <div className="modal-footer">
                     <div className="modal-label">
@@ -34,12 +35,15 @@ export default function Modal({ setIsModal, modalProperties }) {
                             checked={isDontAskChecked}
                             onChange={(e) => setIsDontAskChecked(e.target.checked)}
                         />
-                        <label htmlFor="">
+                        <label>
                             don't ask me again when I delete a {modalProperties.text}.
                         </label>
                     </div>
                     <div className="modal-buttons">
-                        <button className="dlt-btn" onClick={handleDelete} >
+                        <button className="dlt-btn" onClick={(e) => {
+                            e.preventDefault()
+                            handleDelete(modalProperties.id)
+                        }}>
                             Delete
                         </button>
                         <button onClick={() => setIsModal(false)}>

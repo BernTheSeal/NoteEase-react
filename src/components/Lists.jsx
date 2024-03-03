@@ -1,49 +1,28 @@
-import { useContext, useEffect, useState } from 'react'
-import { DataContext } from '../context/DataContext'
+import { useEffect, useState } from 'react'
+import List from './List'
+import { useSelector } from 'react-redux'
 
-export default function Lists({ setFilterListTittle, setIsModal, setModalProperties }) {
-    const { state, dispatch } = useContext(DataContext)
+
+export default function Lists({ setFilterListTitle }) {
+
     const [listLengths, setListLengths] = useState({})
+    const stateList = useSelector((state) => state.list.value)
+    const stateNote = useSelector((state) => state.note.value)
 
     useEffect(() => {
         const lengths = {}
-        state.list.forEach(list => {
-            const noteCount = state.notes.filter(note => note.list === list.tittle).length
-            lengths[list.tittle] = noteCount
+        stateList.forEach(list => {
+            const noteCount = stateNote.filter(note => note.list === list.title).length
+            lengths[list.title] = noteCount
         })
         setListLengths(lengths)
-    }, [state.list, state.notes])
+    }, [stateList, stateNote])
 
     return (
         <>
             {
-                state.list.map((list, index) => (
-                    <div key={index} className="group" onClick={() => { setFilterListTittle(list.tittle) }}>
-                        <button onClick={(e) => {
-                            e.stopPropagation()
-                            if (state.settings.list) {
-                                setIsModal(true)
-                                setModalProperties({
-                                    dispatch: {
-                                        type: 'DELETE_LIST',
-                                        payload: { 'deleteListId': list.id, 'deleteListName': list.tittle }
-                                    },
-                                    text: 'list',
-                                    value: listLengths[list.tittle],
-                                    name: list.tittle
-                                })
-                            } else {
-                                dispatch({ type: 'DELETE_LIST', payload: { 'deleteListId': list.id, 'deleteListName': list.tittle } })
-                            }
-                        }} ><i class="fa-solid fa-x"></i></button>
-                        <div className='group-header'>
-                            <div className="circle" style={{ backgroundColor: list.color }} ></div>
-                            <h3>{list.tittle}</h3>
-                        </div>
-                        <p style={{ color: list.color, fontWeight: 600, fontSize: '0.9rem' }}>
-                            {listLengths[list.tittle]}
-                        </p>
-                    </div>
+                stateList.map((list, index) => (
+                    <List list={list} index={index} length={listLengths} setFilterListTitle={setFilterListTitle} />
                 ))
             }
         </>

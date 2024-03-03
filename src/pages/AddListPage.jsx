@@ -1,22 +1,27 @@
-import { useEffect, useState, useContext } from "react"
-import { DataContext } from "../context/DataContext"
-import getToast from "../helpers/toastHelpers"
+import { useEffect, useState } from "react"
+import { addList } from "../features/list/listslice"
 import { handleInputLimit } from "../helpers/inputHelpers"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function AddListPage({ SetIsAddListPage }) {
-    const [listTittle, setListTittle] = useState('')
-    const [currentColor, setCurrentColor] = useState(null)
-    const [listTittleArray, setListTittleArray] = useState([])
+    const [title, setTitle] = useState('')
+    const [color, setColor] = useState(null)
+    const [listArray, setListArray] = useState([])
 
-    const { dispatch, state } = useContext(DataContext)
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state.list.value)
 
     useEffect(() => {
         const listTittleArray = []
-        for (let key of state.list) {
-            listTittleArray.push(key.tittle)
+        for (let key of state) {
+            listTittleArray.push(key.title)
         }
-        setListTittleArray(listTittleArray)
-    }, [state.list])
+        setListArray(listTittleArray)
+    }, [state])
+
+    const handleAddList = () => {
+        dispatch(addList({ title, color, listArray }))
+    }
 
     const colors = ['#3491a3', '#7eab02', '#8c52ff', '#ff1616', '#ff66c4', '#ff914d ', '#dab82e', '#896363', '#3cb371', '#4682b4', '#ff6347', '#ba55d3', '#ffa500', '#20b2aa ', '#800000', '#ffa07a']
 
@@ -28,26 +33,26 @@ export default function AddListPage({ SetIsAddListPage }) {
                     <button onClick={() => SetIsAddListPage(false)}><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div className="form-main">
-                    <input type="text" placeholder="list name" value={listTittle} onChange={(e) => {
-                        setListTittle(e.target.value)
-                        handleInputLimit(30, e, 'LIST', listTittle, setListTittle)
+                    <input type="text" placeholder="list name" value={title} onChange={(e) => {
+                        setTitle(e.target.value)
+                        handleInputLimit(30, e, 'LIST', title, setTitle)
                     }} />
                     <div className="color-palet">
                         <h3>Choose a Color</h3>
                         <div className="colors">
                             <div className="colors-row">
-                                {colors.slice(0, 8).map(color => (
-                                    <div onClick={() => setCurrentColor(color)} className="circle" style={{ backgroundColor: color }}  >
-                                        {currentColor === color
+                                {colors.slice(0, 8).map(clr => (
+                                    <div onClick={() => setColor(clr)} className="circle" style={{ backgroundColor: clr }}  >
+                                        {color === clr
                                             ? <i class="fa-solid fa-check"></i>
                                             : null}
                                     </div>
                                 ))}
                             </div>
                             <div className="colors-row">
-                                {colors.slice(8, 16).map(color => (
-                                    <div onClick={() => setCurrentColor(color)} className="circle" style={{ backgroundColor: color }}  >
-                                        {currentColor === color
+                                {colors.slice(8, 16).map(clr => (
+                                    <div onClick={() => setColor(clr)} className="circle" style={{ backgroundColor: clr }}  >
+                                        {color === clr
                                             ? <i class="fa-solid fa-check"></i>
                                             : null}
                                     </div>
@@ -59,22 +64,11 @@ export default function AddListPage({ SetIsAddListPage }) {
                 <div className="form-footer">
                     <button className="grn-btn" onClick={(e) => {
                         e.preventDefault()
-                        if (listTittle !== '' && currentColor !== null && !listTittleArray.includes(listTittle)) {
-                            dispatch({ type: 'ADD_LIST', payload: { 'listTittle': listTittle, 'listColor': currentColor } })
-                            SetIsAddListPage(false)
-                            getToast('list', 'List is successfully added!', true)
-                        }
-                        else {
-                            if (listTittleArray.includes(listTittle)) {
-                                getToast('list', 'List already exists', false)
-                            } else {
-                                getToast('list', 'Please fill out all fields to add a note.', false)
-                            }
-                        }
+                        handleAddList()
                     }}> Add </button>
                     <button onClick={() => SetIsAddListPage(false)}>Cancel</button>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }

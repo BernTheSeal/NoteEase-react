@@ -1,18 +1,31 @@
 // import { handleAdditionList } from "../helpers/listHelpers"
 import Search from "../components/Search";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
-import { DataContext } from "../context/DataContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addNoteToList, removeNoteFromList } from "../features/note/noteSlice";
 
-export default function ListPage({ setIsListPage, currentId }) {
+export default function ListPage({ setIsListPage }) {
     const [searchVal, setSearchVal] = useState('')
     const [currentList, setCurrentList] = useState(null)
-    const { state, dispatch } = useContext(DataContext)
+
+    const dispatch = useDispatch()
+    const stateList = useSelector((state) => state.list.value)
+    const stateNote = useSelector((state) => state.note.value)
+    const id = useSelector((state) => state.note.id)
+
+    const handleAddNoteToList = (title, color) => {
+        dispatch(addNoteToList({ title, color }))
+    }
+
+    const handleRemoveNoteFromList = () => {
+        dispatch(removeNoteFromList())
+    }
 
     useEffect(() => {
-        const currentNote = state.notes.find(note => note.id === currentId)
+        const currentNote = stateNote.find(note => note.id === id)
         setCurrentList(currentNote.list)
-    }, [state.notes, state.list])
+    }, [stateList, stateNote])
 
     return (
         <div className="list-container">
@@ -21,18 +34,18 @@ export default function ListPage({ setIsListPage, currentId }) {
                     <Search searchVal={searchVal} setSearchVal={setSearchVal} icon={'fa-solid fa-magnifying-glass'} />
                 </div>
                 <div className="list-main">
-                    {state.list.filter(list => (handleInputSearch(list, searchVal, 'LIST'))).map((list) => (
+                    {stateList.filter(list => (handleInputSearch(list, searchVal, 'LIST'))).map((list) => (
                         <div>
                             <button
                                 style={{ color: list.color }}
                                 onClick={() => {
-                                    if (currentList !== list.tittle) {
-                                        dispatch({ type: 'ADDITION_LIST', payload: { 'listId': currentId, 'listName': list.tittle, 'color': list.color } })
+                                    if (currentList !== list.title) {
+                                        handleAddNoteToList(list.title, list.color)
                                     } else {
-                                        dispatch({ type: 'REMOVE_FROM_LIST', payload: { 'removeListId': currentId } })
+                                        handleRemoveNoteFromList()
                                     }
-                                }} > {list.tittle}
-                                {currentList === list.tittle ? <i class="fa-solid fa-check"></i> : null}
+                                }} > {list.title}
+                                {currentList === list.title ? <i class="fa-solid fa-check"></i> : null}
                             </button>
                         </div>
                     ))}

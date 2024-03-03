@@ -1,24 +1,32 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { Toaster } from 'react-hot-toast';
-import { DataContext } from "../context/DataContext";
+import { editNote } from "../features/note/noteSlice";
+
 import getToast from "../helpers/toastHelpers";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
-  const [currentNote, setCurrentNote] = useState('')
-  const [newTittle, setNewTittle] = useState('')
+
+export default function UpdateNotePage({ setIsUpdateNotePage }) {
+  const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
-  const { state, dispatch } = useContext(DataContext)
+  const dispatch = useDispatch()
+  const id = useSelector((state) => state.note.id)
+  const notes = useSelector((state) => state.note.value)
 
   useEffect(() => {
-    const curNote = state.notes.find(note => note.id === String(currentId))
-    setCurrentNote(curNote)
-  }, [currentId])
+    notes.map((note) => {
+      if (note.id == id) {
+        setNewTitle(note.title)
+        setNewDescription(note.description)
+      }
+    })
+  }, [])
 
-  useEffect(() => {
-    setNewTittle(currentNote.tittle)
-    setNewDescription(currentNote.description)
-  }, [currentNote])
+  const handleEditNote = (e) => {
+    e.preventDefault()
+    dispatch(editNote({ newTitle, newDescription }))
+  }
 
   return (
     <div className="pages-container">
@@ -26,21 +34,32 @@ export default function UpdateNotePage({ setIsUpdateNotePage, currentId }) {
       <form action="">
         <div className="form-header">
           <h3> Edit Note</h3>
-          <button onClick={() => setIsAddNotePage(false)}><i class="fa-solid fa-xmark"></i></button>
+          <button onClick={() => setIsAddNotePage(false)}>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
         <div className="form-main">
-          <input type="text" placeholder="tittle" value={newTittle} onChange={(e) => handleInputLimit(80, e, 'TITTLE', newTittle, setNewTittle)} />
-          <textarea placeholder="description" value={newDescription} onChange={(e) => {
-            handleInputLimit(750, e, 'DESCRIPTION', newDescription, setNewDescription)
-          }}></textarea>
+          <input
+            type="text"
+            placeholder="title"
+            value={newTitle}
+            onChange={(e) => handleInputLimit(80, e, 'TITLE', newTitle, setNewTitle)}
+          />
+          <textarea
+            placeholder="description"
+            value={newDescription}
+            onChange={(e) => {
+              handleInputLimit(750, e, 'DESCRIPTION', newDescription, setNewDescription)
+            }}>
+          </textarea>
         </div>
         <div className="form-footer">
-          <button className="grn-btn" onClick={(e) => {
-            e.preventDefault()
-            dispatch({ type: 'EDIT_NOTE', payload: { 'editId': currentId, 'newTittle': newTittle, 'newDescription': newDescription } })
-            getToast('note', 'Note is successfully edited!', true)
-          }}>Edit</button>
-          <button onClick={() => setIsUpdateNotePage(false)}>Cancel</button>
+          <button className="grn-btn" onClick={(e) => handleEditNote(e)}>
+            Edit
+          </button>
+          <button onClick={() => setIsUpdateNotePage(false)}>
+            Cancel
+          </button>
         </div>
 
       </form>
