@@ -14,50 +14,41 @@ import Lists from "./components/Lists";
 import Modal from "./components/Modal";
 
 //*pages
-import AddNotePage from './pages/AddNotePage';
-import UpdateNotePage from "./pages/UpdateNotePage";
-import ListPage from "./pages/ListPage";
-import AddListPage from "./pages/AddListPage";
+import AddNoteModal from './modal/AddNoteModal';
+import EditNoteModal from "./modal/EditNoteModal";
+import ListModal from "./modal/ListModal";
+import AddListModal from "./modal/AddListModal";
 
 //*react
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import logo from "../logo.svg"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+//*modalReducers
+import { setIsAddListModal } from './features/modal/modalSlice';
+import { setIsAddNoteModal } from './features/modal/modalSlice';
 
 export default function App() {
-  const [isAddNotePage, setIsAddNotePage] = useState(false)
-  const [isUpdateNotePage, setIsUpdateNotePage] = useState(false)
-  const [isAddListPage, SetIsAddListPage] = useState(false)
-  const [isListPage, setIsListPage] = useState(false)
-  const [isModal, setIsModal] = useState(false)
-
-
   const [searchVal, setSearchVal] = useState('')
   const [filterListTitle, setFilterListTitle] = useState('All Notes')
 
   const stateNote = useSelector((state) => state.note.value)
+  const stateModal = useSelector((state) => state.modal)
+  const dispatch = useDispatch()
 
   return (
     <div className="main-page-container">
       <Toaster />
 
-      {isAddNotePage ? <AddNotePage
-        setIsAddNotePage={setIsAddNotePage}
-      /> : null}
-      {isUpdateNotePage ? <UpdateNotePage
-        setIsUpdateNotePage={setIsUpdateNotePage}
-      /> : null}
-      {isAddListPage ? <AddListPage
-        SetIsAddListPage={SetIsAddListPage}
-      /> : null}
-      {isListPage ? <ListPage
-        setIsListPage={setIsListPage}
-      /> : null}
-      {isModal ? <Modal
-        setIsModal={setIsModal}
-      /> : null}
+      {stateModal.isAddNoteModal ? <AddNoteModal /> : null}
+      {stateModal.isEditNoteModal ? <EditNoteModal /> : null}
+      {stateModal.isAddListModal ? <AddListModal /> : null}
+      {stateModal.isListPageModal ? <ListModal /> : null}
 
+      {/* {isModal ? <Modal
+        setIsModal={setIsModal}
+      /> : null} */}
 
       <header>
         <div className="logo">
@@ -69,7 +60,7 @@ export default function App() {
         </div>
 
         <div className="buttons ">
-          <button onClick={() => setIsAddNotePage(true)} className={'add-btn'} > Add New Note</button>
+          <button onClick={() => dispatch(setIsAddNoteModal(true))} className={'add-btn'} > Add New Note</button>
         </div>
       </header>
 
@@ -79,8 +70,6 @@ export default function App() {
         </div>
         <Notes
           searchVal={searchVal}
-          setIsUpdateNotePage={setIsUpdateNotePage}
-          setIsListPage={setIsListPage}
           filterListTittle={filterListTitle}
         />
       </main>
@@ -95,7 +84,7 @@ export default function App() {
         <Lists
           setFilterListTitle={setFilterListTitle}
         />
-        <div onClick={() => SetIsAddListPage(true)} className="group add-new-list">
+        <div onClick={() => dispatch(setIsAddListModal(true))} className="group add-new-list">
           <h3 > <i className="fa-solid fa-circle-plus"></i> Add New List </h3>
         </div>
       </nav>

@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { handleInputSearch } from "../helpers/inputHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { addNoteToList, removeNoteFromList } from "../features/note/noteSlice";
+import { setIsListModal } from "../features/modal/modalSlice";
 
-export default function ListPage({ setIsListPage }) {
+export default function ListModal({ setIsListPage }) {
     const [searchVal, setSearchVal] = useState('')
     const [currentList, setCurrentList] = useState(null)
 
@@ -21,6 +22,7 @@ export default function ListPage({ setIsListPage }) {
     const handleRemoveNoteFromList = () => {
         dispatch(removeNoteFromList())
     }
+
 
     useEffect(() => {
         const currentNote = stateNote.find(note => note.id === id)
@@ -51,7 +53,7 @@ export default function ListPage({ setIsListPage }) {
                     ))}
                 </div>
                 <div className="list-footer">
-                    <button onClick={() => setIsListPage(false)}>Done</button>
+                    <button onClick={() => dispatch(setIsListModal(false))}>Done</button>
                 </div>
 
             </div>

@@ -5,9 +5,10 @@ import { editNote } from "../features/note/noteSlice";
 
 import getToast from "../helpers/toastHelpers";
 import { useDispatch, useSelector } from "react-redux";
+import { setIsEditNoteModal } from "../features/modal/modalSlice";
 
 
-export default function UpdateNotePage({ setIsUpdateNotePage }) {
+export default function EditNoteModal({ setIsUpdateNotePage }) {
   const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
   const dispatch = useDispatch()
@@ -26,6 +27,7 @@ export default function UpdateNotePage({ setIsUpdateNotePage }) {
   const handleEditNote = (e) => {
     e.preventDefault()
     dispatch(editNote({ newTitle, newDescription }))
+    dispatch(setIsEditNoteModal(false))
   }
 
   return (
@@ -57,13 +59,16 @@ export default function UpdateNotePage({ setIsUpdateNotePage }) {
           <button className="grn-btn" onClick={(e) => handleEditNote(e)}>
             Edit
           </button>
-          <button onClick={() => setIsUpdateNotePage(false)}>
+          <button onClick={(e) => {
+            e.preventDefault()
+            dispatch(setIsEditNoteModal(false))
+          }}>
             Cancel
           </button>
         </div>
 
-      </form>
-    </div>
+      </form >
+    </div >
   )
 }
 

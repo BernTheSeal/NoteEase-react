@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { addList } from "../features/list/listslice"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { useDispatch, useSelector } from "react-redux"
+import { setIsAddListModal } from "../features/modal/modalSlice"
 
-export default function AddListPage({ SetIsAddListPage }) {
+export default function AddListModal({ SetIsAddListPage }) {
     const [title, setTitle] = useState('')
     const [color, setColor] = useState(null)
     const [listArray, setListArray] = useState([])
@@ -21,6 +22,7 @@ export default function AddListPage({ SetIsAddListPage }) {
 
     const handleAddList = () => {
         dispatch(addList({ title, color, listArray }))
+        dispatch(setIsAddListModal(false))
     }
 
     const colors = ['#3491a3', '#7eab02', '#8c52ff', '#ff1616', '#ff66c4', '#ff914d ', '#dab82e', '#896363', '#3cb371', '#4682b4', '#ff6347', '#ba55d3', '#ffa500', '#20b2aa ', '#800000', '#ffa07a']

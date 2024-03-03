@@ -1,8 +1,10 @@
 import { deleteNote, setId } from "../features/note/noteSlice";
 import { handleInputSearch } from "../helpers/inputHelpers";
 import { useDispatch, useSelector } from "react-redux";
+import { setIsEditNoteModal, setIsListModal } from "../features/modal/modalSlice";
 
-export default function Notes({ searchVal, setIsUpdateNotePage, setIsListPage, filterListTittle }) {
+
+export default function Notes({ searchVal, filterListTittle }) {
     const state = useSelector((state) => state.note.value)
     const dispatch = useDispatch()
 
@@ -12,7 +14,7 @@ export default function Notes({ searchVal, setIsUpdateNotePage, setIsListPage, f
 
     const handleEditNote = (id) => {
         dispatch(setId(id))
-        setIsUpdateNotePage(true)
+        dispatch(setIsEditNoteModal(true))
     }
 
     return (
@@ -32,7 +34,7 @@ export default function Notes({ searchVal, setIsUpdateNotePage, setIsListPage, f
                                     <button
                                         name='list page'
                                         onClick={() => {
-                                            setIsListPage(true)
+                                            dispatch(setIsListModal(true))
                                             dispatch(setId(note.id))
                                         }} >
                                         <i className="fa-solid fa-bars"></i>

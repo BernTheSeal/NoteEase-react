@@ -2,9 +2,10 @@ import { useState } from "react";
 import { handleInputLimit } from "../helpers/inputHelpers";
 import { useDispatch } from "react-redux";
 import { addNote } from "../features/note/noteSlice";
+import { setIsAddNoteModal } from "../features/modal/modalSlice";
 
 
-export default function AddNotePage({ setIsAddNotePage }) {
+export default function AddNoteModal({ setIsAddNotePage }) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const dispatch = useDispatch()
@@ -13,7 +14,7 @@ export default function AddNotePage({ setIsAddNotePage }) {
         e.preventDefault()
         if (title !== '' && description !== '') {
             dispatch(addNote({ title, description }))
-            setIsAddNotePage(false)
+            dispatch(setIsAddNoteModal(false))
         }
     }
 
@@ -34,11 +35,13 @@ export default function AddNotePage({ setIsAddNotePage }) {
                     <button className="grn-btn" onClick={(e) => handleAddNote(e)}>
                         Add
                     </button>
-                    <button onClick={() =>
-                        setIsAddNotePage(false)
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(setIsAddNoteModal(false))
+                    }
                     }> Cancel</button>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }
