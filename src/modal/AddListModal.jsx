@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { addList } from "../features/list/listslice"
+import { addList } from "../features/list/listSlice"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsAddListModal } from "../features/modal/modalSlice"

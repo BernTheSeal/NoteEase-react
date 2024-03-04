@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux"
-import { deleteList } from "../features/list/listslice"
+import { deleteList } from "../features/list/listSlice"
 import { removeAllNoteFromList } from "../features/note/noteSlice"
 import { useSelector } from "react-redux"
 import { setIsDeletingModal, setModalType } from "../features/modal/modalSlice"
-import { setListId } from "../features/list/listslice"
+import { setListId } from "../features/list/listSlice"
 
 
 export default function List({ list, index, length, setFilterListTitle }) {

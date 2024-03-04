@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteNote } from "../features/note/noteSlice";
 import { setIsDeletingModal } from "../features/modal/modalSlice";
-import { deleteList } from "../features/list/listslice";
+import { deleteList } from "../features/list/listSlice";
 import { setDeletingPreferences } from "../features/preferences/preferencesSlice";
 
 export default function Modal() {
