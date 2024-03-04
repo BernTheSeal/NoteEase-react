@@ -1,16 +1,25 @@
 import { useDispatch } from "react-redux"
 import { deleteList } from "../features/list/listslice"
 import { removeAllNoteFromList } from "../features/note/noteSlice"
+import { useSelector } from "react-redux"
+import { setIsDeletingModal, setModalType } from "../features/modal/modalSlice"
+import { setListId } from "../features/list/listslice"
 
 
 export default function List({ list, index, length, setFilterListTitle }) {
+    const listPreferences = useSelector((state) => state.preferences.deletingPreferences.list)
     const dispatch = useDispatch()
     const { title, id, color } = list
-    console.log(title, id, color)
 
     const handleDeleteList = (id, listTitle) => {
-        dispatch(deleteList({ id }))
-        dispatch(removeAllNoteFromList({ listTitle }))
+        if (listPreferences) {
+            dispatch(setIsDeletingModal(true))
+            dispatch(setModalType('DELETE-LIST'))
+            dispatch(setListId({ id }))
+        } else {
+            dispatch(deleteList({ id }))
+            dispatch(removeAllNoteFromList({ listTitle }))
+        }
     }
     return (
         <div key={index} className="group" onClick={() => { setFilterListTitle(title) }}>

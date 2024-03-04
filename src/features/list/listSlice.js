@@ -5,22 +5,25 @@ const storageData = localStorage.getItem("list") || '[]'
 
 const initialState = {
     value: JSON.parse(storageData),
+    id: null
 }
 
 export const listSlice = createSlice({
     name: 'list',
     initialState,
     reducers: {
+        setListId: (state, action) => {
+            const { id } = action.payload
+            state.id = id
+        },
         addList: (state, action) => {
-            const { title, color, listArray } = action.payload
-            if (title !== '' && color !== null && !listArray.includes(title)) {
-                const newList = {
-                    id: uuidv4(),
-                    title: title,
-                    color: color
-                }
-                state.value = [newList, ...state.value]
+            const { title, color } = action.payload
+            const newList = {
+                id: uuidv4(),
+                title: title,
+                color: color
             }
+            state.value = [newList, ...state.value]
         },
         deleteList: (state, action) => {
             const { id } = action.payload
@@ -29,5 +32,5 @@ export const listSlice = createSlice({
     }
 })
 
-export const { addList, deleteList } = listSlice.actions
+export const { addList, deleteList, setListId } = listSlice.actions
 export default listSlice.reducer

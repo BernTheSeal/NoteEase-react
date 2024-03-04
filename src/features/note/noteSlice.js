@@ -13,7 +13,7 @@ export const noteSlice = createSlice({
     name: 'note',
     initialState,
     reducers: {
-        setId: (state, action) => {
+        setNoteId: (state, action) => {
             const id = action.payload
             state.id = id
         },
@@ -88,5 +88,5 @@ export const noteSlice = createSlice({
 })
 
 
-export const { addNote, deleteNote, setId, editNote, addNoteToList, removeNoteFromList, removeAllNoteFromList } = noteSlice.actions
+export const { addNote, deleteNote, setNoteId, editNote, addNoteToList, removeNoteFromList, removeAllNoteFromList } = noteSlice.actions
 export default noteSlice.reducer

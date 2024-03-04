@@ -5,7 +5,7 @@ import { addNote } from "../features/note/noteSlice";
 import { setIsAddNoteModal } from "../features/modal/modalSlice";
 
 
-export default function AddNoteModal({ setIsAddNotePage }) {
+export default function AddNoteModal() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const dispatch = useDispatch()

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsEditNoteModal } from "../features/modal/modalSlice";
 
 
-export default function EditNoteModal({ setIsUpdateNotePage }) {
+export default function EditNoteModal() {
   const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
   const dispatch = useDispatch()

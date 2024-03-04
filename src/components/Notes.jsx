@@ -1,19 +1,26 @@
-import { deleteNote, setId } from "../features/note/noteSlice";
+import { deleteNote, setNoteId } from "../features/note/noteSlice";
 import { handleInputSearch } from "../helpers/inputHelpers";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsEditNoteModal, setIsListModal } from "../features/modal/modalSlice";
+import { setIsDeletingModal, setIsEditNoteModal, setIsListModal, setModalType } from "../features/modal/modalSlice";
 
 
 export default function Notes({ searchVal, filterListTittle }) {
     const state = useSelector((state) => state.note.value)
+    const notePreferences = useSelector((state) => state.preferences.deletingPreferences.note)
     const dispatch = useDispatch()
 
     const handleDeleteNote = (id) => {
-        dispatch(deleteNote(id))
+        if (notePreferences) {
+            dispatch(setModalType('DELETE-NOTE'))
+            dispatch(setIsDeletingModal(true))
+            dispatch(setNoteId(id))
+        } else {
+            dispatch(deleteNote(id))
+        }
     }
 
     const handleEditNote = (id) => {
-        dispatch(setId(id))
+        dispatch(setNoteId(id))
         dispatch(setIsEditNoteModal(true))
     }
 
@@ -35,7 +42,7 @@ export default function Notes({ searchVal, filterListTittle }) {
                                         name='list page'
                                         onClick={() => {
                                             dispatch(setIsListModal(true))
-                                            dispatch(setId(note.id))
+                                            dispatch(setNoteId(note.id))
                                         }} >
                                         <i className="fa-solid fa-bars"></i>
                                     </button>

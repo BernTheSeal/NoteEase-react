@@ -4,7 +4,7 @@ import { handleInputLimit } from "../helpers/inputHelpers"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsAddListModal } from "../features/modal/modalSlice"
 
-export default function AddListModal({ SetIsAddListPage }) {
+export default function AddListModal() {
     const [title, setTitle] = useState('')
     const [color, setColor] = useState(null)
     const [listArray, setListArray] = useState([])
@@ -21,8 +21,10 @@ export default function AddListModal({ SetIsAddListPage }) {
     }, [state])
 
     const handleAddList = () => {
-        dispatch(addList({ title, color, listArray }))
-        dispatch(setIsAddListModal(false))
+        if (title !== '' && color !== null && !listArray.includes(title)) {
+            dispatch(addList({ title, color }))
+            dispatch(setIsAddListModal(false))
+        }
     }
 
     const colors = ['#3491a3', '#7eab02', '#8c52ff', '#ff1616', '#ff66c4', '#ff914d ', '#dab82e', '#896363', '#3cb371', '#4682b4', '#ff6347', '#ba55d3', '#ffa500', '#20b2aa ', '#800000', '#ffa07a']
@@ -68,7 +70,10 @@ export default function AddListModal({ SetIsAddListPage }) {
                         e.preventDefault()
                         handleAddList()
                     }}> Add </button>
-                    <button onClick={() => SetIsAddListPage(false)}>Cancel</button>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(setIsAddListModal(false))
+                    }}>Cancel</button>
                 </div>
             </form >
         </div >

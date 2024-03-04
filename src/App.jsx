@@ -29,13 +29,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIsAddListModal } from './features/modal/modalSlice';
 import { setIsAddNoteModal } from './features/modal/modalSlice';
 
+
 export default function App() {
   const [searchVal, setSearchVal] = useState('')
   const [filterListTitle, setFilterListTitle] = useState('All Notes')
 
+
+  const stateSettings = useSelector((state) => state.preferences.deletingPreferences)
   const stateNote = useSelector((state) => state.note.value)
   const stateModal = useSelector((state) => state.modal)
+
   const dispatch = useDispatch()
+
+  console.log(stateSettings)
 
   return (
     <div className="main-page-container">
@@ -45,10 +51,7 @@ export default function App() {
       {stateModal.isEditNoteModal ? <EditNoteModal /> : null}
       {stateModal.isAddListModal ? <AddListModal /> : null}
       {stateModal.isListPageModal ? <ListModal /> : null}
-
-      {/* {isModal ? <Modal
-        setIsModal={setIsModal}
-      /> : null} */}
+      {stateModal.isDeletingModal.isModal ? <Modal /> : null}
 
       <header>
         <div className="logo">

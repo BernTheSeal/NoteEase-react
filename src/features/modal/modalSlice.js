@@ -5,6 +5,10 @@ const initialState = {
     isEditNoteModal: false,
     isAddListModal: false,
     isListPageModal: false,
+    isDeletingModal: {
+        isModal: false,
+        modalType: null
+    }
 }
 
 export const modalSlice = createSlice({
@@ -22,10 +26,15 @@ export const modalSlice = createSlice({
         },
         setIsListModal: (state, action) => {
             state.isListPageModal = action.payload
+        },
+        setIsDeletingModal: (state, action) => {
+            state.isDeletingModal.isModal = action.payload
+        },
+        setModalType: (state, action) => {
+            state.isDeletingModal.modalType = action.payload
         }
     }
 })
 
-
-export const { setIsAddNoteModal, setIsEditNoteModal, setIsAddListModal, setIsListModal } = modalSlice.actions
+export const { setIsAddNoteModal, setIsEditNoteModal, setIsAddListModal, setIsListModal, setIsDeletingModal, setModalType } = modalSlice.actions
 export default modalSlice.reducer
