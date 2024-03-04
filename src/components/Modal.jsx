@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteNote } from "../features/note/noteSlice";
 import { setIsDeletingModal } from "../features/modal/modalSlice";
 import { deleteList } from "../features/list/listslice";
+import { setDeletingPreferences } from "../features/preferences/preferencesSlice";
 
 export default function Modal() {
     const modalType = useSelector((state) => state.modal.isDeletingModal.modalType)
@@ -32,6 +33,9 @@ function DeletingNoteModal() {
 
     const handleDeleteNote = () => {
         dispatch(deleteNote(id))
+        if (isDontAskChecked) {
+            dispatch(setDeletingPreferences('note'))
+        }
         dispatch(setIsDeletingModal(false))
     }
 
@@ -91,6 +95,9 @@ function DeletingListModal() {
 
     const handleDeleteList = () => {
         dispatch(deleteList({ id }))
+        if (isDontAskChecked) {
+            dispatch(setDeletingPreferences('list'))
+        }
         dispatch(setIsDeletingModal(false))
     }
 
