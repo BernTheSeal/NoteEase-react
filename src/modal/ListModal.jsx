@@ -17,7 +17,6 @@ export default function ListModal() {
 
     useEffect(() => {
         const currentNote = stateNote.find(note => note.id === id)
-        console.log(currentNote)
         setCurrentList(currentNote.list)
     }, [stateList, stateNote])
 

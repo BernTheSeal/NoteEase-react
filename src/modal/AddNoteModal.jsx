@@ -5,7 +5,6 @@ import { addNote } from "../features/note/noteSlice";
 import { setIsAddNoteModal } from "../features/modal/modalSlice";
 import getToast from "../helpers/toastHelpers";
 
-
 export default function AddNoteModal() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')

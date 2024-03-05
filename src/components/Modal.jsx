@@ -4,6 +4,7 @@ import { deleteNote } from "../features/note/noteSlice";
 import { setIsDeletingModal } from "../features/modal/modalSlice";
 import { deleteList } from "../features/list/listSlice";
 import { setDeletingPreferences } from "../features/preferences/preferencesSlice";
+import { removeAllNoteFromList } from "../features/note/noteSlice";
 
 export default function Modal() {
     const modalType = useSelector((state) => state.modal.isDeletingModal.modalType)
@@ -93,12 +94,14 @@ function DeletingListModal() {
     const [list, setList] = useState(null)
     const [isDontAskChecked, setIsDontAskChecked] = useState(false)
 
-    const handleDeleteList = () => {
+    const handleDeleteList = (listTitle) => {
+        console.log(listTitle)
         dispatch(deleteList({ id }))
         if (isDontAskChecked) {
             dispatch(setDeletingPreferences('list'))
         }
         dispatch(setIsDeletingModal(false))
+        dispatch(removeAllNoteFromList({ listTitle }))
     }
 
     useEffect(() => {
@@ -131,7 +134,7 @@ function DeletingListModal() {
                     <div className="modal-buttons">
                         <button className="dlt-btn" onClick={(e) => {
                             e.preventDefault()
-                            handleDeleteList()
+                            handleDeleteList(list.title)
                         }}>
                             Delete
                         </button>

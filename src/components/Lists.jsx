@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import List from './List'
 import { useSelector } from 'react-redux'
 
-
 export default function Lists({ setFilterListTitle }) {
 
     const [listLengths, setListLengths] = useState({})
@@ -22,7 +21,7 @@ export default function Lists({ setFilterListTitle }) {
         <>
             {
                 stateList.map((list, index) => (
-                    <List list={list} index={index} length={listLengths} setFilterListTitle={setFilterListTitle} />
+                    <List list={list} key={index} length={listLengths} setFilterListTitle={setFilterListTitle} />
                 ))
             }
         </>

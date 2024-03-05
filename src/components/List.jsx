@@ -27,7 +27,7 @@ export default function List({ list, index, length, setFilterListTitle }) {
                 e.stopPropagation()
                 handleDeleteList(id, title)
             }} >
-                <i class="fa-solid fa-x"></i>
+                <i className="fa-solid fa-x"></i>
             </button>
             <div className='group-header'>
                 <div className="circle" style={{ backgroundColor: color }} ></div>
