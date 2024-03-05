@@ -33,9 +33,9 @@ header .search {
 }
 
 header .search div {
-    width: 60%;
+    width: 70%;
     height: 50%;
-    background-color: #272727;
+    background-color: rgb(32, 32, 32);
     border-radius: 10px;
     overflow: hidden;
 }
