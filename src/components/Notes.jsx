@@ -3,7 +3,6 @@ import { handleInputSearch } from "../helpers/inputHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsDeletingModal, setIsEditNoteModal, setIsListModal, setModalType } from "../features/modal/modalSlice";
 
-
 export default function Notes({ searchVal, filterListTittle }) {
     const state = useSelector((state) => state.note.value)
     const notePreferences = useSelector((state) => state.preferences.deletingPreferences.note)

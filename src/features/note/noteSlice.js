@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getTime, getDay } from "../../utils/TimeUtils";
 import { v4 as uuidv4 } from 'uuid';
+import getToast from "../../helpers/toastHelpers";
 
 const storageData = localStorage.getItem("note") || '[]'
 
@@ -19,6 +20,7 @@ export const noteSlice = createSlice({
         },
         addNote: (state, action) => {
             const { title, description } = action.payload
+
             const newNote = {
                 id: uuidv4(),
                 title: title,

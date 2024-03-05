@@ -1,46 +1,25 @@
 import toast from "react-hot-toast"
 
-function getToast(type, explanation, isSuccess) {
-    switch (type) {
-        case 'note':
-            if (isSuccess) {
-                toast.success(explanation, {
-                    duration: 1500,
-                    style: {
-                        background: 'rgb(85, 85, 85)',
-                        color: 'white'
-                    }
-                })
-            } else {
-                toast.error(explanation, {
-                    duration: 1500,
-                    style: {
-                        background: 'rgb(85, 85, 85)',
-                        color: 'white'
-                    }
-                })
+function getToast(explanation, isSuccess) {
+    if (isSuccess) {
+        toast.success(explanation, {
+            duration: 1800,
+            style: {
+                background: '#2e2e2e',
+                color: 'white',
+                border: '1px solid green'
+
             }
-            break;
-        case 'list':
-            if (isSuccess) {
-                toast.success(explanation, {
-                    duration: 1500,
-                    style: {
-                        background: 'rgb(85, 85, 85)',
-                        color: 'white'
-                    }
-                })
-            } else {
-                toast.error(explanation, {
-                    duration: 1500,
-                    style: {
-                        background: 'rgb(85, 85, 85)',
-                        color: 'white'
-                    }
-                })
+        })
+    } else {
+        toast.error(explanation, {
+            duration: 1800,
+            style: {
+                background: '#2e2e2e',
+                color: 'white',
+                border: '1px solid red'
             }
-        default:
-            break;
+        })
     }
 }
 

@@ -2,11 +2,9 @@ import { useEffect, useState } from "react"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { Toaster } from 'react-hot-toast';
 import { editNote } from "../features/note/noteSlice";
-
 import getToast from "../helpers/toastHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsEditNoteModal } from "../features/modal/modalSlice";
-
 
 export default function EditNoteModal() {
   const [newTitle, setNewTitle] = useState('')
@@ -27,7 +25,7 @@ export default function EditNoteModal() {
   const handleEditNote = (e) => {
     e.preventDefault()
     dispatch(editNote({ newTitle, newDescription }))
-    dispatch(setIsEditNoteModal(false))
+    getToast('Note edited', true)
   }
 
   return (
@@ -36,7 +34,7 @@ export default function EditNoteModal() {
       <form action="">
         <div className="form-header">
           <h3> Edit Note</h3>
-          <button onClick={() => setIsAddNotePage(false)}>
+          <button onClick={() => dispatch(setIsEditNoteModal(false))}>
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -59,14 +57,7 @@ export default function EditNoteModal() {
           <button className="grn-btn" onClick={(e) => handleEditNote(e)}>
             Edit
           </button>
-          <button onClick={(e) => {
-            e.preventDefault()
-            dispatch(setIsEditNoteModal(false))
-          }}>
-            Cancel
-          </button>
         </div>
-
       </form >
     </div >
   )

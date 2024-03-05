@@ -3,6 +3,7 @@ import { handleInputLimit } from "../helpers/inputHelpers";
 import { useDispatch } from "react-redux";
 import { addNote } from "../features/note/noteSlice";
 import { setIsAddNoteModal } from "../features/modal/modalSlice";
+import getToast from "../helpers/toastHelpers";
 
 
 export default function AddNoteModal() {
@@ -15,6 +16,9 @@ export default function AddNoteModal() {
         if (title !== '' && description !== '') {
             dispatch(addNote({ title, description }))
             dispatch(setIsAddNoteModal(false))
+            getToast('Note successfully added!', true)
+        } else {
+            getToast('Please fill in all the fields.', false)
         }
     }
 

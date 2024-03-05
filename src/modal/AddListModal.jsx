@@ -3,6 +3,7 @@ import { addList } from "../features/list/listSlice"
 import { handleInputLimit } from "../helpers/inputHelpers"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsAddListModal } from "../features/modal/modalSlice"
+import getToast from "../helpers/toastHelpers"
 
 export default function AddListModal() {
     const [title, setTitle] = useState('')
@@ -24,6 +25,17 @@ export default function AddListModal() {
         if (title !== '' && color !== null && !listArray.includes(title)) {
             dispatch(addList({ title, color }))
             dispatch(setIsAddListModal(false))
+            getToast('List successfully added!', true)
+        } else {
+            if (listArray.includes(title)) {
+                getToast('List already exists.', false)
+            }
+            else if (title === '') {
+                getToast('Please enter a name', false)
+            }
+            else {
+                getToast('Please select a color', false)
+            }
         }
     }
 
@@ -42,7 +54,7 @@ export default function AddListModal() {
                         handleInputLimit(30, e, 'LIST', title, setTitle)
                     }} />
                     <div className="color-palet">
-                        <h3>Choose a Color</h3>
+                        <h3>Select a Color</h3>
                         <div className="colors">
                             <div className="colors-row">
                                 {colors.slice(0, 8).map(clr => (
